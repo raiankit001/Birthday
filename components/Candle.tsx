@@ -64,6 +64,9 @@ export default function Candle({ onDone }: { onDone: () => void }) {
 
         <svg viewBox="0 0 280 300" className="absolute inset-0 h-full w-full drop-shadow-[0_18px_18px_rgba(122,31,61,.35)]">
           <defs>
+            <clipPath id="bottomTier">
+              <rect x="30" y="190" width="220" height="76" rx="18" />
+            </clipPath>
             <linearGradient id="choc" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0" stopColor="#8a3a2b" />
               <stop offset="1" stopColor="#4a1d16" />
@@ -91,7 +94,11 @@ export default function Candle({ onDone }: { onDone: () => void }) {
 
           {/* bottom tier */}
           <rect x="30" y="190" width="220" height="76" rx="18" fill="url(#choc)" />
-          <path d="M30 208 q 18 22 36 0 t 36 0 t 36 0 t 36 0 t 36 0 t 36 0 t 34 0 v-8 H30z" fill="url(#cream)" />
+          <path
+            clipPath="url(#bottomTier)"
+            d="M30 190 V204 q 18.33 24 36.67 0 t 36.67 0 t 36.67 0 t 36.67 0 t 36.67 0 t 36.66 0 V190 z"
+            fill="url(#cream)"
+          />
 
           {/* top tier */}
           <rect x="62" y="126" width="156" height="72" rx="16" fill="url(#cream)" />
