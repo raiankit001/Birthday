@@ -4,9 +4,11 @@ export const site = {
   balloonWords: ["You", "are", "so", "special"],
   // Put your photos in /public/photos and list them here.
   moments: [
-    { src: "/photos/1.svg", caption: "Celebrating you 🎉" },
-    { src: "/photos/2.svg", caption: "Make a wish 🎈" },
-    { src: "/photos/3.svg", caption: "Celebrating you 🎉" },
+    { src: "/photos/1.jpeg", caption: "Celebrating you 🎉" },
+    { src: "/photos/2.jpeg", caption: "Make a wish 🎈" },
+    { src: "/photos/3.jpeg", caption: "Celebrating you 🎉" },
+    { src: "/photos/4.jpeg", caption: "Sweet memories 💕" },
+    { src: "/photos/5.jpeg", caption: "Forever us ✨" },
   ],
   letter: `Happy Birthday to someone truly special! 🎂
 

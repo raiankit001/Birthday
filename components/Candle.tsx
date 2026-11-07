@@ -49,13 +49,17 @@ export default function Candle({ onDone }: { onDone: () => void }) {
       <div className="relative mt-14 h-[300px] w-[280px]">
         {/* flame glow */}
         {phase !== "blown" && (
-          <div className="absolute left-1/2 top-[6px] h-24 w-24 -translate-x-1/2 animate-pulse rounded-full bg-yellow-200/70 blur-2xl" />
+          <div className="absolute left-[92px] top-[0px] h-24 w-24 animate-pulse rounded-full bg-yellow-200/70 blur-2xl" />
         )}
         {/* flame / smoke */}
         {phase !== "blown" ? (
-          <div className="absolute left-1/2 top-[18px] h-9 w-5 -translate-x-1/2 animate-flicker rounded-[50%_50%_50%_50%/72%_72%_28%_28%] bg-gradient-to-t from-orange-500 via-amber-300 to-yellow-100 shadow-[0_0_28px_10px_rgba(255,190,60,.7)]" />
+          <div className="absolute left-[130px] top-[20px] h-9 w-5">
+            <div className="h-full w-full origin-bottom animate-flicker rounded-[50%_50%_50%_50%/72%_72%_28%_28%] bg-gradient-to-t from-orange-500 via-amber-300 to-yellow-100 shadow-[0_0_28px_10px_rgba(255,190,60,.7)]" />
+          </div>
         ) : (
-          <div className="absolute left-1/2 top-[10px] h-10 w-10 -translate-x-1/2 animate-smoke rounded-full bg-white/70 blur-md" />
+          <div className="absolute left-[120px] top-[10px] h-10 w-10">
+            <div className="h-full w-full animate-smoke rounded-full bg-white/70 blur-md" />
+          </div>
         )}
 
         <svg viewBox="0 0 280 300" className="absolute inset-0 h-full w-full drop-shadow-[0_18px_18px_rgba(122,31,61,.35)]">
