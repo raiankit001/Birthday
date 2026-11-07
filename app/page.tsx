@@ -24,10 +24,10 @@ export default function Page() {
       <AnimatePresence initial={false}>
         <motion.section
           key={step}
-          className="absolute inset-0 mx-auto flex h-full w-full max-w-md flex-col items-center justify-center px-4"
-          initial={{ opacity: 0, y: 24, scale: 0.97 }}
-          animate={{ opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 } }}
-          exit={{ opacity: 0, y: -24, scale: 1.03, pointerEvents: "none", transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] } }}
+          className="screen absolute inset-0 mx-auto flex h-full w-full max-w-md flex-col items-center justify-center px-4"
+          initial={{ opacity: 0, scale: 0.985 }}
+          animate={{ opacity: 1, scale: 1, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }}
+          exit={{ opacity: 0, scale: 1.02, pointerEvents: "none", transition: { duration: 0.45, ease: [0.4, 0, 0.2, 1] } }}
         >
           {step === "intro" && <Intro onDone={next} />}
           {step === "balloons" && <Balloons onDone={next} />}
