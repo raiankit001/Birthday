@@ -19,15 +19,15 @@ export default function Page() {
   const step = steps[i];
 
   return (
-    <main className="relative mx-auto flex h-[100dvh] w-full max-w-md items-center justify-center overflow-hidden px-4">
-      <AnimatePresence mode="wait">
+    <main className="relative z-10 h-[100dvh] w-screen overflow-hidden">
+      {/* crossfade: old and new screens overlap, so there is never an empty frame */}
+      <AnimatePresence initial={false}>
         <motion.section
           key={step}
-          className="flex h-full w-full flex-col items-center justify-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.45 }}
+          className="absolute inset-0 mx-auto flex h-full w-full max-w-md flex-col items-center justify-center px-4"
+          initial={{ opacity: 0, y: 24, scale: 0.97 }}
+          animate={{ opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 } }}
+          exit={{ opacity: 0, y: -24, scale: 1.03, pointerEvents: "none", transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] } }}
         >
           {step === "intro" && <Intro onDone={next} />}
           {step === "balloons" && <Balloons onDone={next} />}

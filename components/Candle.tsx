@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import confetti from "canvas-confetti";
+import Portal from "./Portal";
 import { site } from "@/config/site";
 
 export default function Candle({ onDone }: { onDone: () => void }) {
@@ -14,55 +16,137 @@ export default function Candle({ onDone }: { onDone: () => void }) {
 
   const blow = () => {
     setPhase("blown");
-    confetti({ particleCount: 120, spread: 90, origin: { y: 0.6 }, colors: ["#d6204f", "#ff9ec0", "#ffd166"] });
-    setTimeout(onDone, 2200);
+    confetti({ particleCount: 140, spread: 100, origin: { y: 0.55 }, colors: ["#ffffff", "#ffd166", "#ff4d85", "#c9184a"] });
+    setTimeout(onDone, 2400);
   };
 
   return (
-    <div className="relative flex h-full w-full flex-col items-center">
-      <h1 className="mt-[12%] text-center text-xl font-bold text-rose-deep">Blow the candle, {site.name}</h1>
+    <div className="relative flex h-full w-full flex-col items-center justify-center">
+      {/* richer backdrop */}
+      <Portal>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8 }}
+          className="fixed inset-0 z-0 bg-gradient-to-b from-[#ffc2d6] via-[#ff8fb3] to-[#d93a73]"
+        />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8 }}
+          className="pointer-events-none fixed left-1/2 top-1/3 z-0 -ml-36 h-72 w-72 rounded-full bg-white/30 blur-3xl"
+        />
+      </Portal>
 
-      <div className="relative mt-20 h-56 w-56">
-        {/* candle */}
-        <div className="absolute left-1/2 top-0 h-20 w-2.5 -translate-x-1/2 rounded-sm bg-gradient-to-b from-rose-deep to-rose-wine" />
-        {/* flame or smoke */}
-        {phase !== "blown" ? (
-          <div className="absolute -top-6 left-1/2 h-7 w-4 -translate-x-1/2 animate-flicker rounded-[50%_50%_50%_50%/70%_70%_30%_30%] bg-gradient-to-t from-orange-400 to-yellow-200 shadow-[0_0_25px_8px_rgba(255,200,80,.6)]" />
-        ) : (
-          <div className="absolute -top-8 left-1/2 h-8 w-8 -translate-x-1/2 animate-smoke rounded-full bg-gray-400/60 blur-md" />
+      <h1 className="text-center text-2xl font-bold leading-snug text-white drop-shadow-[0_2px_6px_rgba(122,31,61,.45)]">
+        Blow the candle,
+        <br />
+        <span className="text-[#7a1f3d]">{site.name}</span>
+      </h1>
+
+      <div className="relative mt-14 h-[300px] w-[280px]">
+        {/* flame glow */}
+        {phase !== "blown" && (
+          <div className="absolute left-1/2 top-[6px] h-24 w-24 -translate-x-1/2 animate-pulse rounded-full bg-yellow-200/70 blur-2xl" />
         )}
-        {/* cake */}
-        <div className="absolute top-[72px] w-full">
-          <div className="mx-auto h-12 w-44 rounded-t-[50%] bg-[#f6efd9]" />
-          <div
-            className="mx-auto -mt-1 h-14 w-44 rounded-b-3xl bg-[#5b2a1e]"
-            style={{
-              clipPath:
-                "polygon(0 0,8% 25%,16% 0,25% 25%,33% 0,41% 25%,50% 0,58% 25%,66% 0,75% 25%,83% 0,92% 25%,100% 0,100% 100%,0 100%)",
-            }}
-          />
-          <div className="mx-auto -mt-1 h-3 w-56 rounded-full bg-[#cfe9e3]" />
-        </div>
+        {/* flame / smoke */}
+        {phase !== "blown" ? (
+          <div className="absolute left-1/2 top-[18px] h-9 w-5 -translate-x-1/2 animate-flicker rounded-[50%_50%_50%_50%/72%_72%_28%_28%] bg-gradient-to-t from-orange-500 via-amber-300 to-yellow-100 shadow-[0_0_28px_10px_rgba(255,190,60,.7)]" />
+        ) : (
+          <div className="absolute left-1/2 top-[10px] h-10 w-10 -translate-x-1/2 animate-smoke rounded-full bg-white/70 blur-md" />
+        )}
+
+        <svg viewBox="0 0 280 300" className="absolute inset-0 h-full w-full drop-shadow-[0_18px_18px_rgba(122,31,61,.35)]">
+          <defs>
+            <linearGradient id="choc" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor="#8a3a2b" />
+              <stop offset="1" stopColor="#4a1d16" />
+            </linearGradient>
+            <linearGradient id="cream" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor="#fffaf0" />
+              <stop offset="1" stopColor="#ffd9e4" />
+            </linearGradient>
+            <linearGradient id="wax" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stopColor="#ff4d85" />
+              <stop offset="1" stopColor="#c9184a" />
+            </linearGradient>
+          </defs>
+
+          {/* candle */}
+          <rect x="132" y="62" width="16" height="64" rx="3" fill="url(#wax)" />
+          {[74, 90, 106].map((y) => (
+            <rect key={y} x="132" y={y} width="16" height="6" fill="#fff" opacity=".55" />
+          ))}
+          <rect x="138.5" y="54" width="3" height="10" rx="1.5" fill="#3a2a2a" />
+
+          {/* plate */}
+          <ellipse cx="140" cy="268" rx="132" ry="16" fill="#fff" opacity=".9" />
+          <ellipse cx="140" cy="264" rx="120" ry="12" fill="#ffe3ec" />
+
+          {/* bottom tier */}
+          <rect x="30" y="190" width="220" height="76" rx="18" fill="url(#choc)" />
+          <path d="M30 208 q 18 22 36 0 t 36 0 t 36 0 t 36 0 t 36 0 t 36 0 t 34 0 v-8 H30z" fill="url(#cream)" />
+
+          {/* top tier */}
+          <rect x="62" y="126" width="156" height="72" rx="16" fill="url(#cream)" />
+          <path d="M62 150 q 13 24 26 0 t 26 0 t 26 0 t 26 0 t 26 0 t 26 0 v-10 H62z" fill="#ff7aa5" />
+
+          {/* sprinkles */}
+          {[
+            [90, 232, "#ffd166"], [120, 245, "#7bd389"], [156, 236, "#6ec6ff"], [188, 247, "#ffd166"],
+            [214, 230, "#ff7aa5"], [64, 246, "#6ec6ff"], [104, 170, "#fff"], [146, 178, "#ffd166"], [186, 168, "#fff"],
+          ].map(([x, y, c], i) => (
+            <rect key={i} x={x as number} y={y as number} width="9" height="3.5" rx="1.7" fill={c as string} transform={`rotate(${i * 37} ${x} ${y})`} />
+          ))}
+
+          {/* cherries */}
+          <circle cx="98" cy="122" r="9" fill="#d90429" />
+          <circle cx="182" cy="122" r="9" fill="#d90429" />
+          <circle cx="95" cy="119" r="2.5" fill="#fff" opacity=".7" />
+          <circle cx="179" cy="119" r="2.5" fill="#fff" opacity=".7" />
+        </svg>
       </div>
 
+      {phase === "ready" && (
+        <button
+          onClick={blow}
+          className="absolute bottom-[9%] rounded-full bg-gradient-to-r from-rose-deep to-[#ff4d85] px-9 py-3.5 text-sm font-bold text-white shadow-xl shadow-rose-wine/40 active:scale-95"
+        >
+          💨 Tap to blow the candle
+        </button>
+      )}
+      {phase === "blown" && (
+        <p className="absolute bottom-[12%] font-hand text-4xl font-bold text-white drop-shadow">Wish granted ✨</p>
+      )}
+
+      <Portal>
+      <AnimatePresence>
       {phase === "wish" && (
-        <div className="absolute inset-0 flex items-center justify-center bg-rose-deep/20 backdrop-blur-[2px]">
-          <p className="text-center text-4xl font-bold leading-tight text-white drop-shadow-lg">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.7 }}
+          className="fixed inset-0 z-30 flex flex-col items-center justify-center gap-6 bg-gradient-to-b from-rose-wine/50 to-rose-deep/60 backdrop-blur-sm"
+        >
+          {["top-[15%] left-[18%]", "top-[25%] right-[16%]", "bottom-[22%] left-[22%]", "bottom-[14%] right-[20%]"].map((p, i) => (
+            <span key={i} className={`absolute ${p} animate-float text-2xl text-white/70`} style={{ animationDelay: `${i * 0.5}s` }}>
+              ✦
+            </span>
+          ))}
+          <span className="animate-float text-6xl">🌠</span>
+          <p className="px-6 text-center text-4xl font-bold leading-tight text-white drop-shadow-lg">
             Close your eyes
             <br />
             &amp; make a wish
           </p>
-        </div>
+          <p className="font-hand text-xl text-white/80">the candle is almost ready…</p>
+        </motion.div>
       )}
-      {phase === "ready" && (
-        <button
-          onClick={blow}
-          className="absolute bottom-[10%] rounded-full bg-white/80 px-8 py-3 text-sm font-bold text-rose-wine shadow-lg backdrop-blur"
-        >
-          🌬️ Tap to blow the candle
-        </button>
-      )}
-      {phase === "blown" && <p className="absolute bottom-[14%] font-hand text-3xl text-rose-deep">Wish granted ✨</p>}
+      </AnimatePresence>
+      </Portal>
     </div>
   );
 }

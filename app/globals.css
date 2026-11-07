@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body { height: 100%; }
+html, body { height: 100%; background: #f8c9d8; }
+html { background: linear-gradient(to bottom, #fbf6ee, #f8c9d8) fixed; }
 body {
   background: linear-gradient(to bottom, #fbf6ee, #f8c9d8);
   background-attachment: fixed;
