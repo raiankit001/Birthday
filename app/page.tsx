@@ -20,14 +20,14 @@ export default function Page() {
 
   return (
     <main className="relative z-10 h-[100dvh] w-screen overflow-hidden">
-      {/* crossfade: old and new screens overlap, so there is never an empty frame */}
-      <AnimatePresence initial={false}>
+      {/* one screen at a time: quick blur-fade out, then a soft blur-fade in (fixed overlays live in Portals) */}
+      <AnimatePresence mode="wait">
         <motion.section
           key={step}
           className="screen absolute inset-0 mx-auto flex h-full w-full max-w-md flex-col items-center justify-center px-4"
-          initial={{ opacity: 0, scale: 0.985 }}
-          animate={{ opacity: 1, scale: 1, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }}
-          exit={{ opacity: 0, scale: 1.02, pointerEvents: "none", transition: { duration: 0.45, ease: [0.4, 0, 0.2, 1] } }}
+          initial={{ opacity: 0, scale: 0.97, filter: "blur(8px)" }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px)", transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }}
+          exit={{ opacity: 0, scale: 1.04, filter: "blur(8px)", pointerEvents: "none", transition: { duration: 0.35, ease: [0.4, 0, 1, 1] } }}
         >
           {step === "intro" && <Intro onDone={next} />}
           {step === "balloons" && <Balloons onDone={next} />}

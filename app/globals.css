@@ -21,6 +21,14 @@
   .screen > div > * { animation: none; }
 }
 
+/* Disable text selection / copying / image dragging everywhere */
+html, body, * {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+img, svg { -webkit-user-drag: none; user-drag: none; pointer-events: auto; }
+
 html, body { height: 100%; background: #f8c9d8; }
 html { background: linear-gradient(to bottom, #fbf6ee, #f8c9d8) fixed; }
 body {

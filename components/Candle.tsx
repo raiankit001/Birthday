@@ -28,14 +28,14 @@ export default function Candle({ onDone }: { onDone: () => void }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.35 }}
           className="fixed inset-0 z-0 bg-gradient-to-b from-[#ffc2d6] via-[#ff8fb3] to-[#d93a73]"
         />
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.35 }}
           className="pointer-events-none fixed left-1/2 top-1/3 z-0 -ml-36 h-72 w-72 rounded-full bg-white/30 blur-3xl"
         />
       </Portal>
